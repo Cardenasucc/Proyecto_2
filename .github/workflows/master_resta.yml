@@ -13,25 +13,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
+      - name: Configurar versión de Python
         uses: actions/setup-python@v1
         with:
           python-version: '3.12'
 
-      - name: Create and start virtual environment
+      - name: Crear y activar entorno virtual
         run: |
           python -m venv venv
           source venv/bin/activate
       
-      - name: Install dependencies
+      - name: Instalar dependencias
         run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
-      - name: Zip artifact for deployment
+      # Opcional: Añadir paso para ejecutar pruebas aquí (PyTest, suites de pruebas de Django, etc.)
+
+      - name: Comprimir artefacto para despliegue
         run: zip -r release.zip ./* -x "venv/*"
 
-      - name: Upload artifact for deployment jobs
+      - name: Subir artefacto para trabajos de despliegue
         uses: actions/upload-artifact@v3
         with:
           name: python-app
@@ -44,25 +44,25 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write # Esto es necesario para solicitar el JWT
 
     steps:
-      - name: Download artifact from build job
+      - name: Descargar artefacto del trabajo de construcción
         uses: actions/download-artifact@v3
         with:
           name: python-app
 
-      - name: Unzip artifact for deployment
+      - name: Descomprimir artefacto para despliegue
         run: unzip release.zip
 
-      - name: Login to Azure
+      - name: Iniciar sesión en Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1186F6F52A9A4D208C2BBFBADFA3FF2D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BCC8F43CB36D4715BF443BDEE42FF5A1 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5678A28F6528458C8C8EDFE3042593CE }}
 
-      - name: Deploy to Azure Web App
+      - name: Desplegar en Azure Web App
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
