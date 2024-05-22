@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - resta
+name: Build and deploy Python app to Azure Web App - lagranjaotravez
 
 on:
   push:
@@ -11,28 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Configurar versión de Python
-        uses: actions/setup-python@v1
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.12'
+          python-version: '3.11'
 
-      - name: Crear y activar entorno virtual
+      - name: Create and activate virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
       
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-      # Opcional: Añadir paso para ejecutar pruebas aquí (PyTest, suites de pruebas de Django, etc.)
+      - name: Zip artifact for deployment
+        run: |
+          zip -r release.zip . -x "venv/*" ".git/*" ".github/*"
 
-      - name: Comprimir artefacto para despliegue
-        run: zip -r release.zip ./* -x "venv/*"
-
-      - name: Subir artefacto para trabajos de despliegue
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact for deployment jobs
+        uses: actions/upload-artifact@v2
         with:
           name: python-app
           path: release.zip
@@ -44,27 +46,28 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # Esto es necesario para solicitar el JWT
+      id-token: write 
 
     steps:
-      - name: Descargar artefacto del trabajo de construcción
-        uses: actions/download-artifact@v3
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
         with:
           name: python-app
 
-      - name: Descomprimir artefacto para despliegue
-        run: unzip release.zip
+      - name: Unzip artifact for deployment
+        run: unzip -o release.zip
 
-      - name: Iniciar sesión en Azure
+      - name: List files for debugging
+        run: ls -la
+
+      - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1186F6F52A9A4D208C2BBFBADFA3FF2D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BCC8F43CB36D4715BF443BDEE42FF5A1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5678A28F6528458C8C8EDFE3042593CE }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Desplegar en Azure Web App
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
-          app-name: 'resta'
-          slot-name: 'production'
+          app-name: 'lagranjaotravez'
+          slot-name: 'Production'
+
