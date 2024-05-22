@@ -23,7 +23,7 @@ SECRET_KEY = 'django-insecure-52b$wzq7f876s!us@b_&a2&p5(nhpzud9+a*n3$#u@cy248@8d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['resta.azurewebsites.net, 127.0.0.1, localhost']
 
 
 # Application definition
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'cafeteria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3, https://resta.azurewebsites.net/, 127.0.0.1, localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
