@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - lagranjaotravez
+name: Build and deploy Python app to Azure Web App - resta
 
 on:
   push:
@@ -12,29 +12,28 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Python version
+        uses: actions/setup-python@v1
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
-      - name: Create and activate virtual environment
+      - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
       
       - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
+        
+      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: |
-          zip -r release.zip . -x "venv/*" ".git/*" ".github/*"
+        run: zip -r release.zip ./* -x "venv/*"
 
       - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: python-app
           path: release.zip
@@ -46,29 +45,27 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write 
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip -o release.zip
-
-      - name: List files for debugging
-        run: ls -la
+        run: unzip release.zip
 
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1186F6F52A9A4D208C2BBFBADFA3FF2D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BCC8F43CB36D4715BF443BDEE42FF5A1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5678A28F6528458C8C8EDFE3042593CE }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
-          app-name: 'lagranjaotravez'
-          slot-name: 'Production'
+          app-name: 'resta'
+          slot-name: 'production'
