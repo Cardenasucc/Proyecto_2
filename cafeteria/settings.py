@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'cafeteria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3, lluxry.azurewebsites.net, 127.0.0.1, localhost',
+        'ENGINE': 'django.db.backends.sqlite3, https://resta.azurewebsites.net/, 127.0.0.1, localhost',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
