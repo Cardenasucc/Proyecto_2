@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-52b$wzq7f876s!us@b_&a2&p5(nhpzud9+a*n3$#u@cy248@8d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost, 127.0.0.1, resta.azurewebsites.net']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'resta.azurewebsites.net']
+
 
 
 # Application definition
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'inventario.apps.InventoryConfig',
-    'inventario',
     'products',
 ]
 

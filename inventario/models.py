@@ -10,7 +10,7 @@ class Category(models.Model):
         return self.products.all()
 
     class Meta:
-        db_table = 'categories'  # Nombre personalizado para la tabla de categorías
+        db_table = 'categories'
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -24,4 +24,4 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'products'  # Nombre personalizado para la tabla de productos
+        db_table = 'products'
