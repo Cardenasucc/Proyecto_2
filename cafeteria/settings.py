@@ -78,10 +78,15 @@ WSGI_APPLICATION = 'cafeteria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'electiva2',
+        'USER': 'Cardenas',
+        'PASSWORD': 'Gemelos30',
+        'HOST': 'electiva2.postgres.database.azure.com',
+        'PORT': '5432',
     }
 }
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

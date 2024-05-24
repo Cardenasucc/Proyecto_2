@@ -1,48 +1,8 @@
 {% extends "menu.html" %}
 
 {% block content %}
-    <section class="food_section layout_padding">
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h2>Our Menu</h2>
-            </div>
 
-            <ul class="filters_menu">
-                <li class="active" data-filter="*">All</li>
 
-                {% for category in categorias %}
-                <li data-filter=".{{ category.name }}">{{ category.name }}</li>
-                {% endfor %}
-            </ul>
-            
-            <div class="filters-content">
-                {% for inventario in product %}
-                <div class="box {{ product.category }}">
-                    <div>
-                        <div class="img-box">
-                            <img src='{{ inventario.image }}' alt='{{ inventario.name }}'>
-                        </div>
-                        <div class="detail-box">
-                            <h5>{{ inventario.name }}</h5>
-                            <p>{{ inventario.description }}</p>
-                            <div class="options">
-                                <h6>${{ inventario.price }}</h6>
-                                <a href="#" class="btn btn-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                        <path d="M17 17h-11v-14h-2" />
-                                        <path d="M6 5l14 1l-1 7h-13" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
 {% endblock %}
 
 
