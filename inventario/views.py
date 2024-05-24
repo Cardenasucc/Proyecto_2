@@ -2,10 +2,8 @@ from django.shortcuts import render
 from .models import Category, Product
 
 def home(request):
-    # Obtener todas las categorías y todos los productos
     categories = Category.objects.all()
     products = Product.objects.all()
-    # Pasar las categorías y los productos como contexto a la plantilla
     return render(request,'index.html', {'categories': categories, 'products': products})
 
 from django.shortcuts import render
