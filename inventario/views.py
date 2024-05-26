@@ -4,17 +4,19 @@ from .forms import ProductForm
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'index.html', {'categories': categories, 'products': products})
+    return render(request, 'index.html', {'products': products})
 
 def book(request):
     return render(request, 'book.html')
 
 def menu(request):
-    return render(request, 'menu.html')
+    products = Product.objects.all()
+    return render(request, 'menu.html', {'products': products})
+
 
 def create_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)  # Añadir request.FILES para manejar archivos
         if form.is_valid():
             form.save()
             return redirect('book')  # Redirigimos al usuario a la lista de productos

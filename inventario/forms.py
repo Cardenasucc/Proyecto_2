@@ -2,9 +2,12 @@ from django import forms
 from .models import Product
 
 class ProductForm(forms.ModelForm):
+    azure_image_url = forms.URLField(label='Azure Blob Storage Image URL', required=True, widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Enter Azure Blob Storage image URL'}))
+    price = forms.DecimalField(max_digits=10, decimal_places=2, widget=forms.TextInput(attrs={'placeholder': 'Price in USD'}))
+
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'quantity']
+        fields = ['name', 'description', 'price', 'quantity', 'azure_image_url']
 
     def clean_price(self):
         price = self.cleaned_data.get('price')
