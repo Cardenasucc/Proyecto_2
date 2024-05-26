@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'restaura.azurewebsites.net']
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
