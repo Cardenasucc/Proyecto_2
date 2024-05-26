@@ -16,12 +16,11 @@ def menu(request):
 
 def create_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)  # Añadir request.FILES para manejar archivos
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('book')  # Redirigimos al usuario a la lista de productos
+            return redirect('book')
         else:
-            # Si el formulario no es válido, renderizamos el formulario con errores
             return render(request, 'book.html', {'form': form})
     else:
         form = ProductForm()

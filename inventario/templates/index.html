@@ -155,36 +155,54 @@
     </section>
     <!-- end slider section -->
   </div>
-    <!-- food section -->
 
-    <section class="food_section layout_padding">
-      <div class="container">
-        <div class="heading_container heading_center">
-          <h2>
-            Our Menu
-          </h2>
-        </div>
-  
-        <ul class="filters_menu">
-          <li class="active" data-filter="*">All</li>
-          <li data-filter=".burger">Burger</li>
-          <li data-filter=".pizza">Pizza</li>
-          <li data-filter=".pasta">Pasta</li>
-          <li data-filter=".fries">Fries</li>
-        </ul>
-  
-        <div class="filters-content">
-          <div class="row grid">
-            
-          </div>
-        </div>
-        <div class="btn-box">
-          <a href="">
-            View More
-          </a>
-        </div>
+
+  <!-- food section -->
+
+
+  <section class="food_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Our Menu</h2>
       </div>
-    </section>
+  
+      <!-- <ul class="filters_menu">
+        <li class="active" data-filter="*">All</li>
+        <li data-filter=".burger">Burger</li>
+        <li data-filter=".pizza">Pizza</li>
+        <li data-filter=".pasta">Pasta</li>
+        <li data-filter=".fries">Fries</li>
+      </ul> -->
+
+      <div class="filters-content">
+        <div class="row grid">
+            {% for product in products %}
+            <div class="col-sm-6 col-lg-4 all {{ product.category }}">
+                <div class="box">
+                    <div>
+                        <div class="img-box">
+                          <img src="{{ product.azure_image_url }}" alt="{{ product.name }}">
+                        </div>
+                        <div class="detail-box">
+                            <h5>{{ product.name }}</h5>
+                            <p>{{ product.description }}</p>
+                            <div class="options">
+                                <h6>${{ product.price }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+    
+      <div class="btn-box">
+        <a href="#">View More</a>
+      </div>
+    </div>
+  </section>
+  
   
   <!-- end food section -->
 
