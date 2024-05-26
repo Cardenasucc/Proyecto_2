@@ -100,20 +100,27 @@
                 <div class="box">
                     <div>
                         <div class="img-box">
-                          <img src="{{ product.azure_image_url }}" alt="{{ product.name }}">
+                            <img src="{{ product.azure_image_url }}" alt="{{ product.name }}">
                         </div>
                         <div class="detail-box">
                             <h5>{{ product.name }}</h5>
                             <p>{{ product.description }}</p>
                             <div class="options">
                                 <h6>${{ product.price }}</h6>
+                                <!-- Botón de eliminación -->
+                                <form method="POST" action="{% url 'delete_product' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-          {% endfor %}
-      </div>
+            {% endfor %}
+        </div>
+    </div>
+    
     </div>
     
       <div class="btn-box">

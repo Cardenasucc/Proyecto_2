@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
-from .models import Product
+from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render
 from .forms import ProductForm
+from .models import Product
+
+
 
 def home(request):
     products = Product.objects.all()
@@ -25,3 +28,8 @@ def create_product(request):
     else:
         form = ProductForm()
     return render(request, 'book.html', {'form': form})
+
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+    return redirect('menu') 
