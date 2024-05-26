@@ -3,13 +3,13 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-52b$wzq7f876s!us@b_&a2&p5(nhpzud9+a*n3$#u@cy248@8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
+# SECURITY SETTINGS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
@@ -59,10 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cafeteria.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -74,12 +71,15 @@ DATABASES = {
     }
 }
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://restaura.azurewebsites.net',
-]
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -96,23 +96,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),
-]
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
