@@ -8,9 +8,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-52b$wzq7f876s!us@b_&a2&p5(nhpzud9+a*n3$#u@cy248@8d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'restaura.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://restaura.azurewebsites.net']
 
 # Application definition
 
@@ -71,6 +75,10 @@ DATABASES = {
 }
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://restaura.azurewebsites.net',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
